@@ -9,19 +9,67 @@
 </head>
 <body class="bg-[url('../img/bg.jpeg')]  bg-cover h-screen w-screen">
 
-    <div class="flex flex-col justify-around items-center h-full w-full">
-        <div class="flex justify-around w-1/2">
-            <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
-            <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
-            <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
-            <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
-            <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+    <div class="flex justify-center items-center h-full w-full">
+        <div class="flex flex-col justify-around items-center h-full w-full">
+            <div id="roll1" class="flex justify-around w-1/2">
+
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+            </div>
+
         </div>
-        <div class="bg-red-900 text-white w-1/2 h-48 text-7xl bg-opacity-90 rounded-md text-center pt-10 hover:scale-110">Тапай</div>
+        <div class="flex flex-col justify-around items-center h-full w-full">
+            <div id="roll2" class="flex justify-around w-1/2">
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+                <div class="text-white text-7xl bg-red-900 w-32 h-32 p-8 text-center rounded-md">2</div>
+            </div>
+        </div>
+    <button id="roll" onclick="roll()" class="bg-red-900 text-white w-1/2 h-48 text-7xl bg-opacity-90 rounded-md text-center pt-10 hover:scale-110">Тапай</button>
     </div>
+    <script>
+        async function roll() {
+            const code = localStorage.getItem("code")
+            const name = localStorage.getItem("name")
+            const response = await fetch(`gamepage/roll?code=${code}&player_name=${name}`);
+            console.log(response)
 
+            data = await response.json()
+            console.log(data)
 
-    <button class=""></button>
+            roll1 = document.getElementById("roll1")
+            roll2 = document.getElementById("roll2")
+
+            for (let i = 0; i < roll1.children.length; i++) {
+                const child = roll1.children[i];
+                child.textContent = data.roll1[i]
+            }
+
+            if (data.roll2) {
+                for (let i = 0; i < roll2.children.length; i++) {
+                    const child = roll2.children[i];
+                    child.textContent = data.roll2[i]
+                }
+                
+            } else {
+                for (let i = 0; i < roll2.children.length; i++) {
+                    const child = roll2.children[i];
+                    child.textContent = '0'
+                }
+            }
+
+            if (data.winner) {
+                alert(data.winner)
+            }
+            
+        }
+    </script>
+
 
 </body>
 </html>

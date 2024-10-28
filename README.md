@@ -61,4 +61,3 @@
     poetry run python -m uvicorn backend.main:app --reload
 
     url - /homepage
-</ul>
