@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice poker</title>
+    <script src="https://unpkg.com/htmx.org@2.0.1"></script>    
+    <link href="./static/css/output.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+</head>
+<body class="bg-[url('../img/bg.jpeg')]  bg-cover h-screen w-screen">
+    <div class="flex justify-center items-center h-full w-full">
+        <div class="bg-red-900 bg-opacity-80 rounded-xl h-1/2 w-1/2 ">
+            <div class="flex justify-around h-full items-center">
+                <div class="w-1/2 h-2/3 flex flex-col justify-center items-center">
+                    <button id="create_lobby_button" onclick="makeRequestAndRedirect()" class="bg-slate-600 r-4 h-20 rounded-xl text-5xl p-5 text-white">Создать лобби</button>
+                </div>
+                <div class="w-1/2 h-2/3 flex flex-col justify-center items-center gap-10">
+                    <div class="text-5xl text-white">Присоединиться к лобби</div>
+                    <input class="h-10 bg-slate-600 w-1/2" placeholder="Введите код">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function makeRequestAndRedirect() {
+            const response = await fetch('homepage/create_lobby');
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.text();
+
+            alert(`Ваш код: ${data}, сохраните его`);
+
+            window.location.href = '/gamepage';
+        }
+    </script>
+</body>
+</html>
