@@ -46,7 +46,19 @@
     </li>
     <li><strong>Часть 2:</strong>
         <ol>
-            <li>loading...</li>
+            <li>Не успели за первую часть: релиз и логика</li>
+            <li>Логика написана (какая-то)</li>
+            <li>Есть GUI (какой-то)</li>
+            <li>Добавили лицензию</li>
+            <li>Добавили релизную версию</li>
+            <li>Не успели совсем: многопользовательский режим (больше одного лобби)</li>
         </ol>
     </li>
+</ul>
+
+## Установка и запуск:
+    poetry install
+    poetry run python -m uvicorn backend.main:app --reload
+
+    url - /homepage
 </ul>
