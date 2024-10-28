@@ -17,8 +17,10 @@
                     <button id="create_lobby_button" onclick="create_lobby()" class="bg-slate-600 r-4 h-20 rounded-xl text-5xl p-5 text-white">Создать лобби</button>
                 </div>
                 <div class="w-1/2 h-2/3 flex flex-col justify-center items-center gap-10">
+
                     <button id="create_lobby_button" onclick="join_lobby()" class="bg-slate-600 r-4 h-20 rounded-xl text-5xl p-5 text-white">Присоединиться к лобби</button>
                     <input id="lobby_code" class="h-10 bg-slate-600 w-1/2" placeholder="Введите код">
+
                 </div>
 
             </div>
@@ -26,6 +28,7 @@
     </div>
 
     <script>
+
         async function create_lobby() {
             const player_name = document.getElementById("player_name");
             const response = await fetch(`homepage/create_lobby?player_name=${player_name.value}`);
