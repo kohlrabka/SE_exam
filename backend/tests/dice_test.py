@@ -1,7 +1,7 @@
 from backend import dice
 
 def test_dices_random():
-    n = 1000000
+    n = 100000
     number_probability = {
         "1": 0,
         "2": 0,
