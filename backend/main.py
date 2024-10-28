@@ -7,7 +7,7 @@ from backend.handles import gamepage
 
 app = APIRouter()
 
-app.mount("/static", StaticFiles(directory="./static"), name="static")
+app.mount("/static", StaticFiles(directory="./frontend/static"), name="static")
 
 app.include_router(homepage.router)
 app.include_router(gamepage.router)
