@@ -15,17 +15,15 @@ def gamepage(request: Request):
 
 
 
-@router.get('/gamepage/roll', response_class=HTMLResponse)
+@router.get('/gamepage/roll', response_class=JSONResponse)
 def gamepage_roll(code: str, player_name: str):
 
 
     lobby = lobbies[code]
 
-    if lobby.players[lobby.turn] != player_name:
-        return 
+    # if lobby.players[lobby.turn] != player_name:
+    #     return 
 
-    if len(lobby.players) != 2:
-        return
 
     if lobby.turn % 2 == 0:
         lobby.rolls[0] = get_dices()

@@ -17,18 +17,18 @@ def homepage(request: Request):
 @router.get('/homepage/create_lobby', response_class=HTMLResponse)
 def homepage_create_lobby(player_name: str):
     lobby_code = str(uuid.uuid4())[:8] 
-    lobbies[lobby_code] = Lobby(code=lobby_code, players=[player_name], turn=0, rolls=[None, None])
+    lobbies[lobby_code] = Lobby(code=lobby_code, players=[player_name, ""], turn=0, rolls=[None, None])
     print(lobbies)
     return lobby_code
 
 
 @router.get('/homepage/join_lobby', response_class=HTMLResponse)
-def homepage_join_lobby(code, player_name):
+def homepage_join_lobby(code: str, player_name: str):
+    print(code, player_name)
 
     if code in lobbies:
         lobby =  lobbies[code]
         lobby.players.append(player_name)
-        lobby.rolls[player_name] = None
 
         return JSONResponse(
             content={
