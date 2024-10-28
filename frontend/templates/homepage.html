@@ -11,13 +11,16 @@
 <body class="bg-[url('../img/bg.jpeg')]  bg-cover h-screen w-screen">
     <div class="flex justify-center items-center h-full w-full">
         <div class="bg-red-900 bg-opacity-80 rounded-xl h-1/2 w-1/2 ">
+            <input id="player_name" class=" text-5xl" placeholder="Enter your name">
             <div class="flex justify-around h-full items-center">
                 <div class="w-1/2 h-2/3 flex flex-col justify-center items-center">
                     <button id="create_lobby_button" onclick="create_lobby()" class="bg-slate-600 r-4 h-20 rounded-xl text-5xl p-5 text-white">Создать лобби</button>
                 </div>
                 <div class="w-1/2 h-2/3 flex flex-col justify-center items-center gap-10">
-                    <button onclick="join_lobby()" class="bg-slate-600 r-4 h-20 rounded-xl text-5xl p-5 text-white">Присоединиться к лобби</button>
-                    <input id="code_input" class="h-10 bg-slate-600 w-1/2" placeholder="Введите код">
+
+                    <button id="create_lobby_button" onclick="join_lobby()" class="bg-slate-600 r-4 h-20 rounded-xl text-5xl p-5 text-white">Присоединиться к лобби</button>
+                    <input id="lobby_code" class="h-10 bg-slate-600 w-1/2" placeholder="Введите код">
+
                 </div>
 
             </div>
@@ -26,15 +29,9 @@
 
     <script>
 
-        async function join_lobby() {
-            const code_input = document.getElementById("code_input")
-            const code = code_input.value
-            const response = await fetch(`homepage/join_lobby?code=${code}`)
-
-        }
-
         async function create_lobby() {
-            const response = await fetch('homepage/create_lobby');
+            const player_name = document.getElementById("player_name");
+            const response = await fetch(`homepage/create_lobby?player_name=${player_name.value}`);
             
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -45,6 +42,26 @@
             alert(`Ваш код: ${data}, сохраните его`);
 
             window.location.href = '/gamepage';
+            localStorage.setItem("name", player_name.value)
+            localStorage.setItem("code", data)
+        }
+
+        async function join_lobby() {
+            const player_name = document.getElementById("player_name");
+            const code = document.getElementById("lobby_code")
+            const response = await fetch(`homepage/join_lobby?code=${code.value}&player_name=${player_name.value}`);
+            
+
+            const data = await response.json();
+
+            if (!data.is_valid_code) {
+                alert("Code invalid")
+            } else {
+                localStorage.setItem("name", player_name.value)
+                localStorage.setItem("code", code.value)
+                window.location.href = '/gamepage';
+            }
+
         }
     </script>
 </body>
