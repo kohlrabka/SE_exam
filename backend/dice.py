@@ -6,3 +6,5 @@ def get_dices():
         dices.append(random.randint(1, 6))
     return dices
 
+def get_scrore(dices):
+    return 1
