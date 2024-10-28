@@ -1,4 +1,4 @@
-import dice
+from backend import dice
 
 def test_dices_random():
     n = 1000000
